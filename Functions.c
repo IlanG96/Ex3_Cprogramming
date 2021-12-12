@@ -99,11 +99,37 @@ void reverse_str(char *str1)
         str1[strlen(str1) - i - 1] = temp;  
     }  
 }  
-void Atbash(){
-reverse_str(word);
-printf("%s\n", word);
+
+void Atbash_func(char *str){
+    for (int i = 0; i < strlen(str); i++)
+    {
+        char ch=str[i];
+            if (ch >= 'A' && ch <= 'Z')
+    {
+        str[i]='Z'-(ch-'A');
+    }
+    else if (ch >= 'a' && ch <= 'z')
+    {
+         str[i]='z'-(ch-'a');
+     } 
+    }
 }
 
 void Atbash(){
+char* original=(char*)malloc(strlen(word));
+strcpy(original,word);
+reverse_str(word);
+// char* original_rev=(char*)malloc(strlen(word));
+// strcpy(original_rev,word);
+Atbash_func(original);
+Atbash_func(word);
+
+
+printf("%s\n %s", word,original);
+}
+
     
-} 
+
+    
+
+

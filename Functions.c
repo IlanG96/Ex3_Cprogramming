@@ -11,63 +11,67 @@ char text[TXT];
 void initialization(){
     
     printf("please enter a word no more than 30 characters:");
-    gets(word);
+    fgets(word,WORD,stdin);
     
-    printf("please enter text with no more than 1024 characters:");
-    gets(text);
+    printf("please enter text with no more than 1024 characters::");
+    fgets(text,TXT,stdin);
 }
-void gematry(){
-    char *cptr = NULL;
-    //memory allocation to word
-    cptr = (char*)malloc(sizeof(char));
-    //check if malloc realy allocate 
-    if(cptr == NULL){
-        return ;
-    }
-    //run over the text and take words 
-    for (int i=0;i<strlen(text); i++){
-        char ch = text[i]; 
-        //check if the char is letter 
-        if(isalpha(ch)){
-        // allocate (1) memory for this letter
-        cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
-        
-        //connect the letter to this word 
-        strncat(cptr, &ch, 1);
-        if(cptr == NULL){
-            return ;}
-        }
-        else {
-        //check if cptr not empty
-        if(cptr[0] != '\0'){
-        //check if cptr equal to word 
-        if(Gematria_value(cptr) == Gematria_value(word)){
-            //printf("are the same");
-            printf("%s /n", cptr);
-            }
-        cptr[0]= '\0';
-        memset(cptr,0,strlen(cptr));
-        }
 
-    }
-}
-free(cptr);
-}
 int Gematria_value(char *str){
 int Value = 0;
-int i =0;
-while(str[i])
+int counter = 0;
+for (int i = 0; i < strlen(str); i++)
 {
     char ch = str[i];
-
     if (ch >= 'A' && ch <= 'Z')
     {
         Value += ch - 'A' + 1;
+        counter++;
     }
     else if (ch >= 'a' && ch <= 'z')
     {
         Value += ch - 'a' + 1;
+        counter++;
+     } 
+    else if(isalpha(ch) == 0 && counter == 0){
+         Value++;
     }
-    i++;
 }
+return Value;
 }
+void gematry(){
+    char *cptr = NULL;
+    cptr = (char*)malloc(sizeof(char));
+    if(cptr == NULL){
+        return ;
+    }
+    int gem_word=Gematria_value(word);
+    for (int i=0;i<strlen(text); i++){
+        char ch = text[i];
+        cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
+        if(cptr == NULL){return ;}
+        strncat(cptr, &ch, 1);
+
+        if(Gematria_value(cptr) == gem_word){
+             printf("~%s", cptr);
+             memmove(cptr, cptr+1, strlen(cptr));
+             cptr = realloc(cptr, strlen(cptr));
+            }
+        else{
+            while(Gematria_value(cptr) > gem_word){
+                memmove(cptr, cptr+1, strlen(cptr));
+                cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));}
+            if(Gematria_value(cptr) == gem_word){
+                printf("~%s", cptr);
+                memmove(cptr, cptr+1, strlen(cptr));
+                cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));;
+                
+            }
+        }
+    }   
+free(cptr);
+}
+
+void Atbash(){
+    
+} 

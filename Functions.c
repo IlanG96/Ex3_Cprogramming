@@ -40,6 +40,7 @@ for (int i = 0; i < strlen(str); i++)
 return Value;
 }
 void gematry(){
+    int counter=0;
     char *cptr = NULL;
     cptr = (char*)malloc(sizeof(char));
     if(cptr == NULL){
@@ -47,29 +48,60 @@ void gematry(){
     }
     int gem_word=Gematria_value(word);
     for (int i=0;i<strlen(text); i++){
+        if (text[i]=='~')
+        {
+            break;
+        }
+        
         char ch = text[i];
         cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
         if(cptr == NULL){return ;}
         strncat(cptr, &ch, 1);
 
         if(Gematria_value(cptr) == gem_word){
-             printf("~%s", cptr);
+            if (counter==0){
+                printf("%s", cptr);
+            }
+            else{
+             printf("~%s", cptr);}
              memmove(cptr, cptr+1, strlen(cptr));
              cptr = realloc(cptr, strlen(cptr));
+             counter++;
             }
         else{
             while(Gematria_value(cptr) > gem_word){
                 memmove(cptr, cptr+1, strlen(cptr));
                 cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));}
             if(Gematria_value(cptr) == gem_word){
-                printf("~%s", cptr);
+                if (counter==0){
+                printf("%s", cptr);
+            }
+            else{
+             printf("~%s", cptr);}
                 memmove(cptr, cptr+1, strlen(cptr));
-                cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));;
+                cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
+                counter++;
                 
             }
         }
-    }   
+    } 
+printf("\n");
 free(cptr);
+}
+
+void reverse_str(char *str1)  
+{    
+    int temp;        
+    for (int i = 0; i < strlen(str1)/2; i++)  
+    {   
+        temp = str1[i];  
+        str1[i] = str1[strlen(str1) - i - 1];  
+        str1[strlen(str1) - i - 1] = temp;  
+    }  
+}  
+void Atbash(){
+reverse_str(word);
+printf("%s\n", word);
 }
 
 void Atbash(){

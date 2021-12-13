@@ -117,18 +117,42 @@ void Atbash_func(char *str){
 
 void Atbash(){
 char* original=(char*)malloc(strlen(word));
+char* word2=(char*)malloc(strlen(word));
 strcpy(original,word);
-reverse_str(word);
-// char* original_rev=(char*)malloc(strlen(word));
-// strcpy(original_rev,word);
+strcpy(word2,word);
+reverse_str(word2);
 Atbash_func(original);
-Atbash_func(word);
+Atbash_func(word2);
+//printf("%s,%s \n", word2, original);
+int positions[strlen(word)]; // saves the positions of word 
+int k=0;
+    for(int i=0; i<strlen(text) - strlen(word); i++)
+    {
+        printf("%s,%s \n", word, original);
+        int found = 1;
+        for(int j=0; j<3; j++)
+        {
+            printf("%s,%s \n", *word, original);
+            if(text[i + j] != word2[j] )
+            {
+                found = 0;
+                break;
+            }
+        }
+                if(found == 1)
+        {
+            positions[0] = i ;
+            k++;
+        }
+    }
 
-
-printf("%s\n %s", word,original);
+  
+     printf("%d\n ", positions[0]);
+  
+//printf("%s\n %s", word,original);
 }
 
-    
+
 
     
 

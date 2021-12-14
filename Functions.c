@@ -5,8 +5,10 @@
 
 #define WORD 30
 #define TXT 1024
-char word[WORD];
-char text[TXT];
+static char word[WORD];
+static char text[TXT];
+static char Wordatbash[WORD];
+static char reverseAtbash[WORD];
 
 void initialization(){
     
@@ -89,67 +91,144 @@ printf("\n");
 free(cptr);
 }
 
-void reverse_str(char *str1)  
+void reverse_str(char *Wordatbash)  
 {    
     int temp;        
-    for (int i = 0; i < strlen(str1)/2; i++)  
+    for (int i = 0; i < strlen(Wordatbash)/2; i++)  
     {   
-        temp = str1[i];  
-        str1[i] = str1[strlen(str1) - i - 1];  
-        str1[strlen(str1) - i - 1] = temp;  
-    }  
+        temp = Wordatbash[i];  
+        reverseAtbash[i] = Wordatbash[strlen(Wordatbash) - i - 1];  
+        reverseAtbash[strlen(Wordatbash) - i - 1] = temp;  
+    } 
 }  
 
-void Atbash_func(char *str){
-    for (int i = 0; i < strlen(str); i++)
+void Atbash_func(char *word){
+    for (int i = 0; i < strlen(word); i++)
     {
-        char ch=str[i];
-            if (ch >= 'A' && ch <= 'Z')
-    {
-        str[i]='Z'-(ch-'A');
-    }
+        char ch=word[i];
+        if (ch >= 'A' && ch <= 'Z')
+        {
+            Wordatbash[i]='Z'-(ch-'A');
+        }
     else if (ch >= 'a' && ch <= 'z')
-    {
-         str[i]='z'-(ch-'a');
-     } 
+        {
+         Wordatbash[i]='z'-(ch-'a');
+        } 
+    
     }
 }
 
-void Atbash(){
-char* original=(char*)malloc(strlen(word));
-char* word2=(char*)malloc(strlen(word));
-strcpy(original,word);
-strcpy(word2,word);
-reverse_str(word2);
-Atbash_func(original);
-Atbash_func(word2);
-//printf("%s,%s \n", word2, original);
-int positions[strlen(word)]; // saves the positions of word 
-int k=0;
-    for(int i=0; i<strlen(text) - strlen(word); i++)
+int PlaceFinder(char *theword,int *positionsptr,int k){
+    int counter=0;
+ for(int i=0; i<strlen(text) - strlen(word)+1; i++)
     {
-        printf("%s,%s \n", word, original);
-        int found = 1;
-        for(int j=0; j<3; j++)
+        for(int j=0; j<strlen(word)-1; j++)
         {
-            printf("%s,%s \n", *word, original);
-            if(text[i + j] != word2[j] )
+            char textC=text[i + j];
+            char curr_word=theword[j];
+            //printf("%c,%c \n", textC, curr_word);
+            if(textC != curr_word )
             {
-                found = 0;
+                counter=0;
+                //printf("restcounter %d\n", counter);
+                //printf("J %d\n", j);
+
                 break;
             }
+            else{
+                counter++;
+               // printf("counter++ %d\n", counter);
+                // printf("J %d\n", j);
+
+
+            }
         }
-                if(found == 1)
+                if(counter == strlen(word)-1)
         {
-            positions[0] = i ;
+            positionsptr = realloc(positionsptr,  (k+1)* sizeof(int));
+            //printf("counter equal  %d\n", counter);   
+            *(positionsptr+k) = i;
             k++;
+            counter=0;
         }
     }
+    return k;
 
-  
-     printf("%d\n ", positions[0]);
-  
-//printf("%s\n %s", word,original);
+}
+
+void Atbash(){
+Atbash_func(word);
+reverse_str(Wordatbash);
+ int *positionsptr;
+positionsptr = (int*) malloc(1 * sizeof(int));
+int k=0;
+k=PlaceFinder(reverseAtbash,positionsptr,k);
+k=PlaceFinder(Wordatbash,positionsptr,k);
+ for (int i = 0; i < k; i++)
+ {
+
+    printf("%d, ", *(positionsptr+i));
+
+ }
+ printf("\n, ");
+ 
+    
+     //printf("%d,%d,%d,%d\n ", *positionsptr,*(positionsptr+1),*(positionsptr+2),*(positionsptr+3));
+     free(positionsptr);
+}
+
+int * intdeep(int const * src, size_t len)
+{
+   int * p = (int*)calloc(len , sizeof(int));
+   memcpy(p, src, len * sizeof(int));
+   return p;
+}
+void Anagram(){
+
+    int word_len = strlen(word);
+     int *count_word = (int*)calloc(128,sizeof(int));
+     int * temp = intdeep( count_word , 128);
+     for(int i=0; i<word_len; i++){
+         count_word[word[i]]++;
+     }
+     char *cptr = NULL;
+     cptr = (char*)malloc(sizeof(char));
+     int text_len = strlen(text);
+     for (int i = 0; i < text_len; i++)
+     {
+         cptr[0] = '\0';
+         int t=0; 
+         int * temp = intdeep( count_word , 128);
+         for (int j = i; j < i+word_len; j++)
+         {
+             if(temp[text[j]]!=0){
+                cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
+                strncat(cptr, &text[j], 1);
+                t++;
+              if( text[j] != ' '){
+                 temp[text[j]]--;}
+              else {
+            //cptr[t] = ' ';
+            memset(cptr+strlen(cptr),' ',1);
+              j--;
+                }
+             }
+             else {
+                 break;
+             }    
+     }    
+     temp[10]=0;
+     int flag=1;
+     for (int k = 0; k < 128; k++)
+     {
+         if(temp[k]!=0)flag=0;
+     }
+     if(flag==1){printf("angram =%s\n",cptr); }
+     for (int i = 0; i < 128; i++)
+     {
+         temp[i] = 0 ; 
+     }
+     }
 }
 
 

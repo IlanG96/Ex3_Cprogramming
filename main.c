@@ -6,4 +6,5 @@ int main(){
      initialization();
      gematry();
      Atbash();
+     Anagram();
 }

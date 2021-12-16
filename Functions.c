@@ -118,32 +118,77 @@ void Atbash_func(char *word){
     }
 }
 
+void swap(int* xp, int* yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+ 
+// Function to perform Selection Sort
+void selectionSort(int arr[], int n)
+{
+    int i, j, min_idx;
+ 
+    // One by one move boundary of unsorted subarray
+    for (i = 0; i < n - 1; i++) {
+ 
+        // Find the minimum element in unsorted array
+        min_idx = i;
+        for (j = i + 1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+ 
+        // Swap the found minimum element
+        // with the first element
+        swap(&arr[min_idx], &arr[i]);
+    }
+}
+
 int PlaceFinder(char *theword,int *positionsptr,int k){
     int counter=0;
- for(int i=0; i<strlen(text) - strlen(word)+1; i++)
+    char last_word=theword[strlen(word)-1];
+    char last_text;
+ for(int i=0; i<strlen(text) - strlen(word)+2; i++)
     {
-        for(int j=0; j<strlen(word)-1; j++)
+        //try with pointers that run over each word and check instade of for
+        int word_pointer=0;
+        int len=strlen(word)-1;
+        for(int j=0; j<len; j++)
         {
+            last_text=text[i+len];
             char textC=text[i + j];
-            char curr_word=theword[j];
-            //printf("%c,%c \n", textC, curr_word);
-            if(textC != curr_word )
+            char word_char=theword[word_pointer];
+            printf("%c,%c \n", textC, word_char);
+            if(textC != word_char)
             {
+                if(textC!= ' '){
                 counter=0;
-                //printf("restcounter %d\n", counter);
-                //printf("J %d\n", j);
+
+                printf("ketter:  %c\n", textC);
 
                 break;
+                }
+            
+            else{
+                len;
+
+                printf("else :%d\n", counter);
+            }
             }
             else{
                 counter++;
+                word_char++;
                // printf("counter++ %d\n", counter);
                 // printf("J %d\n", j);
-
-
             }
+            if(j==len-1){
+                last_text=text[i + j];
+            }
+             printf("counter:  %d\n", counter);
+
         }
-                if(counter == strlen(word)-1)
+                if(counter >= (strlen(word)-1)&& last_word==last_text)
         {
             positionsptr = realloc(positionsptr,  (k+1)* sizeof(int));
             //printf("counter equal  %d\n", counter);   
@@ -164,6 +209,7 @@ positionsptr = (int*) malloc(1 * sizeof(int));
 int k=0;
 k=PlaceFinder(reverseAtbash,positionsptr,k);
 k=PlaceFinder(Wordatbash,positionsptr,k);
+selectionSort(positionsptr, k);
  for (int i = 0; i < k; i++)
  {
 
@@ -186,6 +232,7 @@ int * intdeep(int const * src, size_t len)
 void Anagram(){
 
     int word_len = strlen(word);
+    int counter=0;
      int *count_word = (int*)calloc(128,sizeof(int));
      int * temp = intdeep( count_word , 128);
      for(int i=0; i<word_len; i++){
@@ -219,16 +266,22 @@ void Anagram(){
      }    
      temp[10]=0;
      int flag=1;
-     for (int k = 0; k < 128; k++)
+    for (int k = 0; k < 128; k++)
      {
          if(temp[k]!=0)flag=0;
      }
-     if(flag==1){printf("angram =%s\n",cptr); }
+     if(flag==1){
+         if(counter == 0 )
+         printf("%s",cptr);
+         else 
+         printf("~%s",cptr);}
+         counter++;
      for (int i = 0; i < 128; i++)
      {
          temp[i] = 0 ; 
      }
      }
+     printf("\n");
 }
 
 

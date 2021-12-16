@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "Functions.h"
 
 #define WORD 30
 #define TXT 1024
@@ -121,8 +122,6 @@ void Atbash_func(char *word){
 void Atbash(){
 Atbash_func(word);
 reverse_str(Wordatbash);
-int Atbash_pointer=0;
-int reverse_Atbash=0;
 int tilda = 1;
 for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
 {
@@ -160,7 +159,7 @@ for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
            flag2=0;
        }
        num++;
-       
+
    }
    }
    if(flag1==1){
@@ -197,7 +196,6 @@ void Anagram(){
     int counter = 0;
     int word_len = strlen(word);
      int *count_word = (int*)calloc(128,sizeof(int));
-     int * temp = intdeep( count_word , 128);
      for(int i=0; i<word_len; i++){
          count_word[word[i]]++;
      }
@@ -218,7 +216,6 @@ void Anagram(){
               if( text[j] != ' '){
                  temp[text[j]]--;}
               else {
-            //cptr[t] = ' ';
             memset(cptr+strlen(cptr),' ',1);
               j--;
                 }

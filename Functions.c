@@ -118,110 +118,74 @@ void Atbash_func(char *word){
     }
 }
 
-void swap(int* xp, int* yp)
-{
-    int temp = *xp;
-    *xp = *yp;
-    *yp = temp;
-}
- 
-// Function to perform Selection Sort
-void selectionSort(int arr[], int n)
-{
-    int i, j, min_idx;
- 
-    // One by one move boundary of unsorted subarray
-    for (i = 0; i < n - 1; i++) {
- 
-        // Find the minimum element in unsorted array
-        min_idx = i;
-        for (j = i + 1; j < n; j++)
-            if (arr[j] < arr[min_idx])
-                min_idx = j;
- 
-        // Swap the found minimum element
-        // with the first element
-        swap(&arr[min_idx], &arr[i]);
-    }
-}
-
-int PlaceFinder(char *theword,int *positionsptr,int k){
-    int counter=0;
-    char last_word=theword[strlen(word)-1];
-    char last_text;
- for(int i=0; i<strlen(text) - strlen(word)+2; i++)
-    {
-        //try with pointers that run over each word and check instade of for
-        int word_pointer=0;
-        int len=strlen(word)-1;
-        for(int j=0; j<len; j++)
-        {
-            last_text=text[i+len];
-            char textC=text[i + j];
-            char word_char=theword[word_pointer];
-            printf("%c,%c \n", textC, word_char);
-            if(textC != word_char)
-            {
-                if(textC!= ' '){
-                counter=0;
-
-                printf("ketter:  %c\n", textC);
-
-                break;
-                }
-            
-            else{
-                len;
-
-                printf("else :%d\n", counter);
-            }
-            }
-            else{
-                counter++;
-                word_char++;
-               // printf("counter++ %d\n", counter);
-                // printf("J %d\n", j);
-            }
-            if(j==len-1){
-                last_text=text[i + j];
-            }
-             printf("counter:  %d\n", counter);
-
-        }
-                if(counter >= (strlen(word)-1)&& last_word==last_text)
-        {
-            positionsptr = realloc(positionsptr,  (k+1)* sizeof(int));
-            //printf("counter equal  %d\n", counter);   
-            *(positionsptr+k) = i;
-            k++;
-            counter=0;
-        }
-    }
-    return k;
-
-}
-
 void Atbash(){
 Atbash_func(word);
 reverse_str(Wordatbash);
- int *positionsptr;
-positionsptr = (int*) malloc(1 * sizeof(int));
-int k=0;
-k=PlaceFinder(reverseAtbash,positionsptr,k);
-k=PlaceFinder(Wordatbash,positionsptr,k);
-selectionSort(positionsptr, k);
- for (int i = 0; i < k; i++)
- {
-
-    printf("%d, ", *(positionsptr+i));
-
- }
- printf("\n, ");
- 
-    
-     //printf("%d,%d,%d,%d\n ", *positionsptr,*(positionsptr+1),*(positionsptr+2),*(positionsptr+3));
-     free(positionsptr);
+int Atbash_pointer=0;
+int reverse_Atbash=0;
+int tilda = 1;
+for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
+{
+   char *cptr1 = NULL;
+   cptr1 = (char*)malloc(sizeof(char));
+   char* cptr2=NULL;
+   cptr2 = (char*)malloc(sizeof(char));
+    int flag1=1;
+    int flag2=1;   
+    int num=0;
+   for (int j = 0; j < strlen(Wordatbash); j++)
+   {
+       if(text[i+num] == ' '){
+           num++;
+           j--;
+       }
+       else {
+       if (Wordatbash[j]==text[i+num]&&flag1==1)
+       {
+        
+        cptr1 = realloc(cptr1,((strlen(cptr1)+1)*sizeof(char)));
+        if(cptr1 == NULL){return ;}
+        strncat(cptr1, &text[i+num], 1);
+       }
+       else{
+           flag1=0;
+       }
+        if (reverseAtbash[j]==text[i+num]&&flag2==1)
+       {
+        cptr2 = realloc(cptr2,((strlen(cptr2)+1)*sizeof(char)));
+        if(cptr2 == NULL){return ;}
+        strncat(cptr2, &text[i+num], 1);
+       }
+       else{
+           flag2=0;
+       }
+       num++;
+       
+   }
+   }
+   if(flag1==1){
+       if(tilda==1){
+      printf("%s",cptr1); 
+      tilda =0;
+   }else{
+       printf("~%s",cptr1);
+   }
+    }
+   if (flag2==1){
+       if(tilda ==1){
+      printf("%s",cptr2); 
+       tilda =0;
+       }else {
+      printf("~%s",cptr2);
+   }   
+   
+   }
+   
+   
 }
+printf("\n");
+}
+
 
 int * intdeep(int const * src, size_t len)
 {
@@ -230,9 +194,8 @@ int * intdeep(int const * src, size_t len)
    return p;
 }
 void Anagram(){
-
+    int counter = 0;
     int word_len = strlen(word);
-    int counter=0;
      int *count_word = (int*)calloc(128,sizeof(int));
      int * temp = intdeep( count_word , 128);
      for(int i=0; i<word_len; i++){
@@ -266,6 +229,7 @@ void Anagram(){
      }    
      temp[10]=0;
      int flag=1;
+     
     for (int k = 0; k < 128; k++)
      {
          if(temp[k]!=0)flag=0;
@@ -274,8 +238,8 @@ void Anagram(){
          if(counter == 0 )
          printf("%s",cptr);
          else 
-         printf("~%s",cptr);}
-         counter++;
+         printf("~%s",cptr);
+         counter++;}
      for (int i = 0; i < 128; i++)
      {
          temp[i] = 0 ; 

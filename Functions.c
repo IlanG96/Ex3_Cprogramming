@@ -134,6 +134,10 @@ for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
     int num=0;
    for (int j = 0; j < strlen(Wordatbash); j++)
    {
+       if(text[i]==' '){
+        flag1 =0;
+        flag2=0;
+        break;}
        if(text[i+num] == ' '){
            num++;
            j--;
@@ -162,6 +166,7 @@ for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
 
    }
    }
+   //printf("flag1=%d, flag2=%d",flag1,flag2);
    if(flag1==1){
        if(tilda==1){
       printf("%s",cptr1); 
@@ -177,7 +182,6 @@ for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
        }else {
       printf("~%s",cptr2);
    }   
-   
    }
    
    
@@ -193,7 +197,7 @@ int * intdeep(int const * src, size_t len)
    return p;
 }
 void Anagram(){
-    int counter = 0;
+    int counter = 1;
     int word_len = strlen(word);
      int *count_word = (int*)calloc(128,sizeof(int));
      for(int i=0; i<word_len; i++){
@@ -207,23 +211,29 @@ void Anagram(){
          cptr[0] = '\0';
          int t=0; 
          int * temp = intdeep( count_word , 128);
+         int num=i;
          for (int j = i; j < i+word_len; j++)
          {
-             if(temp[text[j]]!=0){
+        if(text[i]==' '){
+            counter =0;
+        break;}
+          if(text[num] == ' '){
+           num++;
+           j--;
+       }
+             else{
+              if(temp[text[num]]!=0){
                 cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
-                strncat(cptr, &text[j], 1);
-                t++;
-              if( text[j] != ' '){
-                 temp[text[j]]--;}
-              else {
-            memset(cptr+strlen(cptr),' ',1);
-              j--;
+                strncat(cptr, &text[num], 1);
+                 temp[text[num]]--;
+                 num++;
                 }
-             }
              else {
+                 num++;
                  break;
              }    
-     }    
+             }
+         }  
      temp[10]=0;
      int flag=1;
      
@@ -232,11 +242,11 @@ void Anagram(){
          if(temp[k]!=0)flag=0;
      }
      if(flag==1){
-         if(counter == 0 )
+         if(counter == 1 )
          printf("%s",cptr);
          else 
          printf("~%s",cptr);
-         counter++;}
+         counter=0;}
      for (int i = 0; i < 128; i++)
      {
          temp[i] = 0 ; 

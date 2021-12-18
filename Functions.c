@@ -36,14 +36,15 @@ for (int i = 0; i < strlen(str); i++)
         Value += ch - 'a' + 1;
         counter++;
      } 
-    else if(isalpha(ch) == 0 && counter == 0){
-         Value++;
-    }
+    // else if(isalpha(ch) == 0 && counter == 0){
+    //      Value++;
+    // }
 }
 return Value;
 }
 void gematry(){
     int counter=0;
+    int curr_word_len=0;
     char *cptr = NULL;
     cptr = (char*)malloc(sizeof(char));
     if(cptr == NULL){
@@ -55,39 +56,51 @@ void gematry(){
         {
             break;
         }
-        
         char ch = text[i];
         cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
+        curr_word_len++;
         if(cptr == NULL){return ;}
         strncat(cptr, &ch, 1);
-
         if(Gematria_value(cptr) == gem_word){
+               if(('A'>cptr[0])||(cptr[0]>'z')){
+                memmove(cptr, cptr+1, strlen(cptr));
+                cptr = realloc(cptr, strlen(cptr));
+               }
             if (counter==0){
-                printf("%s", cptr);
+                printf(" %s", cptr);
             }
             else{
-             printf("~%s", cptr);}
+             printf("~%s", cptr);
+             }
              memmove(cptr, cptr+1, strlen(cptr));
              cptr = realloc(cptr, strlen(cptr));
              counter++;
+             curr_word_len=0;
             }
         else{
             while(Gematria_value(cptr) > gem_word){
                 memmove(cptr, cptr+1, strlen(cptr));
                 cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));}
             if(Gematria_value(cptr) == gem_word){
+                if(('A'>cptr[0])||(cptr[0]>'z')){
+                memmove(cptr, cptr+1, strlen(cptr));
+                cptr = realloc(cptr, strlen(cptr));
+               }
                 if (counter==0){
-                printf("%s", cptr);
+                printf(" %s", cptr);
+                
             }
             else{
-             printf("~%s", cptr);}
+             printf("~%s", cptr);
+             }
                 memmove(cptr, cptr+1, strlen(cptr));
                 cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
                 counter++;
-                
+                curr_word_len=0;
             }
         }
     } 
+
 printf("\n");
 free(cptr);
 }
@@ -177,7 +190,7 @@ for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
     }
    if (flag2==1){
        if(tilda ==1){
-      printf("%s",cptr2); 
+      printf(" %s",cptr2); 
        tilda =0;
        }else {
       printf("~%s",cptr2);
@@ -249,7 +262,7 @@ void Anagram(){
      }
      if(flag==1){
          if(counter == 1 )
-         printf("%s",cptr);
+         printf(" %s",cptr);
          else 
          printf("~%s",cptr);
          counter=0;}

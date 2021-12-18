@@ -12,11 +12,7 @@ static char Wordatbash[WORD];
 static char reverseAtbash[WORD];
 
 void initialization(){
-    
-    printf("please enter a word no more than 30 characters:");
     fgets(word,WORD,stdin);
-    
-    printf("please enter text with no more than 1024 characters::");
     fgets(text,TXT,stdin);
 }
 

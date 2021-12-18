@@ -208,18 +208,25 @@ void Anagram(){
      int text_len = strlen(text);
      for (int i = 0; i < text_len; i++)
      {
-         cptr[0] = '\0';
-         int t=0; 
-         int * temp = intdeep( count_word , 128);
+         memset(cptr , 0 ,sizeof cptr);
+        int * temp = intdeep( count_word , 128);
          int num=i;
          for (int j = i; j < i+word_len; j++)
          {
         if(text[i]==' '){
-            counter =0;
         break;}
+        int sum=0;
           if(text[num] == ' '){
            num++;
            j--;
+           if(cptr[0] != '\0'){
+           for(int r=0;r<strlen(cptr);r++){
+             if(cptr[r] != ' ')sum++;
+             }
+            if(sum == word_len-1){break;}
+            cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
+            cptr[strlen(cptr)] = ' ';}
+          
        }
              else{
               if(temp[text[num]]!=0){
@@ -229,14 +236,13 @@ void Anagram(){
                  num++;
                 }
              else {
-                 num++;
                  break;
              }    
              }
          }  
      temp[10]=0;
      int flag=1;
-     
+     //printf("cptr=%s",cptr);
     for (int k = 0; k < 128; k++)
      {
          if(temp[k]!=0)flag=0;
@@ -252,6 +258,7 @@ void Anagram(){
          temp[i] = 0 ; 
      }
      }
+     free(cptr);
      printf("\n");
 }
 

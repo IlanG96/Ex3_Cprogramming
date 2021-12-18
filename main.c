@@ -10,4 +10,6 @@ int main(){
      Atbash();
      printf("Anagram Sequences:");
      Anagram();
+     
+     return 0;
 }

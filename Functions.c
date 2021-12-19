@@ -63,7 +63,7 @@ void gematry(){
         cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
         curr_word_len++;
         if(cptr == NULL){return ;}
-        if(ch != ' '){
+        if(ch != ' ' && cptr[0] != ' '){
         strncat(cptr, &ch, 1);}
         if(Gematria_value(cptr) == gem_word){
                if(('A'>cptr[0])||(cptr[0]>'z')){

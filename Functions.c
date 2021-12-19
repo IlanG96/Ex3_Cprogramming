@@ -72,11 +72,13 @@ void gematry(){
             if (counter==0){
                 if(cptr[0]==' ')
                 memmove(cptr, cptr+1, strlen(cptr));
+                if(isalpha(ch)!=0)
                 printf("%s", cptr);
             }
             else{
                 if(cptr[0]==' ')
                 memmove(cptr, cptr+1, strlen(cptr));
+                if(isalpha(ch)!=0)
             printf("~%s", cptr);
              }
              memmove(cptr, cptr+1, strlen(cptr));
@@ -94,12 +96,14 @@ void gematry(){
                }
                 if (counter==0){
                     if(cptr[0]==' ')
-                memmove(cptr, cptr+1, strlen(cptr));                    
+                memmove(cptr, cptr+1, strlen(cptr));
+                if(isalpha(ch)!=0)                    
                 printf("%s", cptr);
             }
             else{
                 if(cptr[0]==' ')
                 memmove(cptr, cptr+1, strlen(cptr));
+                if(isalpha(ch)!=0)
              printf("~%s", cptr);
              }
                 memmove(cptr, cptr+1, strlen(cptr));

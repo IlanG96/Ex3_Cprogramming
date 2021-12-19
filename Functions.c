@@ -12,9 +12,16 @@ static char Wordatbash[WORD];
 static char reverseAtbash[WORD];
 
 void initialization(){
-    fgets(word,WORD,stdin);
-    fgets(text,TXT,stdin);
+    scanf("%s\n",word);
+    char ch;
+    int i=0;
+    while (ch!='~'){
+    scanf("%c",&ch);
+    text[i]=ch;
+    i++;
+    }
 }
+
 
 int Gematria_value(char *str){
 int Value = 0;
@@ -56,7 +63,8 @@ void gematry(){
         cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
         curr_word_len++;
         if(cptr == NULL){return ;}
-        strncat(cptr, &ch, 1);
+        if(ch != ' '){
+        strncat(cptr, &ch, 1);}
         if(Gematria_value(cptr) == gem_word){
                if(('A'>cptr[0])||(cptr[0]>'z')){
                 memmove(cptr, cptr+1, strlen(cptr));

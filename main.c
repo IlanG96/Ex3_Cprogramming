@@ -4,11 +4,11 @@
 
 int main(){
      initialization();
-     printf("Gematria Sequences:");
+     printf("Gematria Sequences: ");
      gematry();
-     printf("Atbash Sequences:");
+     printf("Atbash Sequences: ");
      Atbash();
-     printf("Anagram Sequences:");
+     printf("Anagram Sequences: ");
      Anagram();
      return 0;
 }

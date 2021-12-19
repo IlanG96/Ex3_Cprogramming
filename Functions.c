@@ -63,7 +63,7 @@ void gematry(){
                 cptr = realloc(cptr, strlen(cptr));
                }
             if (counter==0){
-                printf(" %s", cptr);
+                printf("%s", cptr);
             }
             else{
              printf("~%s", cptr);
@@ -83,7 +83,7 @@ void gematry(){
                 cptr = realloc(cptr, strlen(cptr));
                }
                 if (counter==0){
-                printf(" %s", cptr);
+                printf("%s", cptr);
                 
             }
             else{
@@ -186,7 +186,7 @@ for (int i = 0; i < strlen(text)-strlen(word)+1; i++)
     }
    if (flag2==1){
        if(tilda ==1){
-      printf(" %s",cptr2); 
+      printf("%s",cptr2); 
        tilda =0;
        }else {
       printf("~%s",cptr2);
@@ -258,7 +258,7 @@ void Anagram(){
      }
      if(flag==1){
          if(counter == 1 )
-         printf(" %s",cptr);
+         printf("%s",cptr);
          else 
          printf("~%s",cptr);
          counter=0;}

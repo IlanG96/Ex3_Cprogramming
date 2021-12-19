@@ -268,7 +268,6 @@ void Anagram(){
      }
      }
      free(cptr);
-     printf("\n");
 }
 
 

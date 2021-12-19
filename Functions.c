@@ -63,12 +63,7 @@ void gematry(){
         char ch = text[i];
         cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
         if(cptr == NULL){return ;}
-<<<<<<< HEAD
             strncat(cptr, &ch, 1);
-=======
-        if(ch != ' ' && cptr[0] != ' '){
-        strncat(cptr, &ch, 1);}
->>>>>>> 2df2c90b4f0f3855887b8c599df1fd555ab03914
         if(Gematria_value(cptr) == gem_word){
                if(('A'>cptr[0])||(cptr[0]>'z')){
                 memmove(cptr, cptr+1, strlen(cptr));

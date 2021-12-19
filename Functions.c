@@ -12,8 +12,14 @@ static char Wordatbash[WORD];
 static char reverseAtbash[WORD];
 
 void initialization(){
-    fgets(word,WORD,stdin);
-    fgets(text,TXT,stdin);
+    scanf("%s\n",word);
+    char ch;
+    int i=0;
+    while (ch!='~'){
+    scanf("%c",&ch);
+    text[i]=ch;
+    i++;
+    }
 }
 
 int Gematria_value(char *str){
@@ -38,9 +44,10 @@ for (int i = 0; i < strlen(str); i++)
 }
 return Value;
 }
+
+
 void gematry(){
     int counter=0;
-    int curr_word_len=0;
     char *cptr = NULL;
     cptr = (char*)malloc(sizeof(char));
     if(cptr == NULL){
@@ -54,24 +61,26 @@ void gematry(){
         }
         char ch = text[i];
         cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
-        curr_word_len++;
         if(cptr == NULL){return ;}
-        strncat(cptr, &ch, 1);
+            strncat(cptr, &ch, 1);
         if(Gematria_value(cptr) == gem_word){
                if(('A'>cptr[0])||(cptr[0]>'z')){
                 memmove(cptr, cptr+1, strlen(cptr));
                 cptr = realloc(cptr, strlen(cptr));
                }
             if (counter==0){
+                if(cptr[0]==' ')
+                memmove(cptr, cptr+1, strlen(cptr));
                 printf("%s", cptr);
             }
             else{
-             printf("~%s", cptr);
+                if(cptr[0]==' ')
+                memmove(cptr, cptr+1, strlen(cptr));
+            printf("~%s", cptr);
              }
              memmove(cptr, cptr+1, strlen(cptr));
              cptr = realloc(cptr, strlen(cptr));
              counter++;
-             curr_word_len=0;
             }
         else{
             while(Gematria_value(cptr) > gem_word){
@@ -83,16 +92,18 @@ void gematry(){
                 cptr = realloc(cptr, strlen(cptr));
                }
                 if (counter==0){
+                    if(cptr[0]==' ')
+                memmove(cptr, cptr+1, strlen(cptr));                    
                 printf("%s", cptr);
-                
             }
             else{
+                if(cptr[0]==' ')
+                memmove(cptr, cptr+1, strlen(cptr));
              printf("~%s", cptr);
              }
                 memmove(cptr, cptr+1, strlen(cptr));
                 cptr = realloc(cptr,((strlen(cptr)+1)*sizeof(char)));
                 counter++;
-                curr_word_len=0;
             }
         }
     } 

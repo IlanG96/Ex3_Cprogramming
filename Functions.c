@@ -70,14 +70,18 @@ void gematry(){
                 cptr = realloc(cptr, strlen(cptr));
                }
             if (counter==0){
-                if(cptr[0]==' ')
-                memmove(cptr, cptr+1, strlen(cptr));
+                    while (cptr[0]==' '||cptr[0]=='\n'||cptr[0]=='\t')
+                    {
+                        memmove(cptr, cptr+1, strlen(cptr));  
+                    }
                 if(isalpha(ch)!=0)
                 printf("%s", cptr);
             }
             else{
-                if(cptr[0]==' ')
-                memmove(cptr, cptr+1, strlen(cptr));
+                    while (cptr[0]==' '||cptr[0]=='\n'||cptr[0]=='\t')
+                    {
+                        memmove(cptr, cptr+1, strlen(cptr));  
+                    }
                 if(isalpha(ch)!=0)
             printf("~%s", cptr);
              }
@@ -95,14 +99,19 @@ void gematry(){
                 cptr = realloc(cptr, strlen(cptr));
                }
                 if (counter==0){
-                    if(cptr[0]==' ')
-                memmove(cptr, cptr+1, strlen(cptr));
+                    while (cptr[0]==' '||cptr[0]=='\n'||cptr[0]=='\t')
+                    {
+                        memmove(cptr, cptr+1, strlen(cptr));  
+                    }
+                
                 if(isalpha(ch)!=0)                    
                 printf("%s", cptr);
             }
             else{
-                if(cptr[0]==' ')
-                memmove(cptr, cptr+1, strlen(cptr));
+                    while (cptr[0]==' '||cptr[0]=='\n'||cptr[0]=='\t')
+                    {
+                        memmove(cptr, cptr+1, strlen(cptr));  
+                    }
                 if(isalpha(ch)!=0)
              printf("~%s", cptr);
              }
